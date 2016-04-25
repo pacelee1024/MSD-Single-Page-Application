@@ -6,13 +6,7 @@ require 'vendor/autoload.php';
 $post_date = file_get_contents("php://input");
 $data = json_decode($post_date);
 
-// echo "Name : ".$data->name."\n";
-// echo "Email : ".$data->email."\n";
-
-
-// print_r(array_values($data->string));
-
-// ====================================
+// =============================================
 // AWS
 
 use Aws\S3\S3Client;
@@ -26,6 +20,7 @@ $client = S3Client::factory(array(
     ],
 ));
 
+//upload function for AWS S3 Bucket
 function upload($filename, $filepath) {
     global $client;
 
@@ -39,8 +34,8 @@ function upload($filename, $filepath) {
     return $result['ObjectURL'];
 }
 
-// ===============================
-// Generate Code & Zip
+// =============================================
+// Generate QRCode image & Zip
 
 include "phpqrcode.php";
 
@@ -111,22 +106,20 @@ function generate_qr_code($value) {
     array_push($generated_files, $server_path);
 }
 
+//Generate qrcodes for all the inputs
 foreach ($data->string as $v) {
     generate_qr_code($v);
 }
 
-// echo "numfiles: " . $zip->numFiles . "\n";
-// echo "status:" . $zip->status . "\n";
 $zip->close();
 
 $zipfiles3 = upload($zipfilename, $zipfilepath);
 
-
-
-// ===============================
-// MailGun
+// =============================================
+// MailGun service for sending email
 
 $http_client = new \Http\Adapter\Guzzle6\Client();
+//sandbox test domain can only send to oneself, so here we use a general domain that can send emails to everyone else.
 $mailgun = new \Mailgun\Mailgun('key-fc7873b6b905b88923b1276c0c877aa3', $http_client);
 $domain = "orangejudge.com";
 
@@ -134,20 +127,18 @@ $title = join(", ", $data->string);
 $title = "Your QR Code for " . $title . " are available for download.";
 
 $content = $data->name . ", Please download from " . $zipfiles3 . " <br />Thank you.";
-
-# Now, compose and send your message.
-$mailgun->sendMessage($domain, array('from'    => 'ligaofeng@example.com',
-                                      'to'      => $data->email,
-                                      'subject' => $title,
-                                      'html'    => $content),
-                              array(  'attachment' => array($zipfilepath) ) );
-
-
+// Now, compose and send the message, with both download link and attachment file in zip format
+$mailgun->sendMessage($domain, array('from'       => 'ligaofeng@example.com',
+                                     'to'         => $data->email,
+                                     'subject'    => $title,
+                                     'html'       => $content),
+                               array('attachment' => array($zipfilepath)));
 
 header('Content-Type: application/json');
 
 $res = array();
 $res["error"] = 0;
+//eliminate duplicates input, meaning that multiple same input will only generate one unique qrcode image
 $res["images"] = array_unique($generated_files);
 $res["zip"] = $zipfiles3;
 

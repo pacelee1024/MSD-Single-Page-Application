@@ -12,6 +12,13 @@
 
 4. Launch the Apache server and use localhost to run the application
 
-Note: the QRCode generation process will be completed instantly, while for the
-      email service, it may has some kind of delay due to the regular attachment
-      check of email server.
+Note:
+
+1) the QRCode generation process will be completed instantly, while for the
+   email service, it may has some kind of delay due to the regular attachment
+   check of email server.
+
+2) Testing for windows platform may have certain issues related PHP
+   certificate, which may require further configuration. If possible, please
+   test the project with OSX or linux. The above testing process is conducted
+   under OS X EI Capitan, Version 10.11.3.
