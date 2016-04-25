@@ -9,6 +9,7 @@ app.controller("formController", ['$scope', '$http', function($scope, $http){
   $scope.formsubmit = function(isValid){
       if(isValid){
           var strings = $scope.string.split(',');
+          //max 10 qrcodes input validation
           if (strings.length > 10) {
               alert("Should not have more than 10 codes.");
           } else {
@@ -20,10 +21,10 @@ app.controller("formController", ['$scope', '$http', function($scope, $http){
                     $scope.result = data;
                     $scope.images = data.images;
                     $scope.zip = data.zip;
-                })
-                .catch(function() {
+                  })
+              .catch(function() {
                     alert("Errors.");
-                });
+              });
           }
       }
       else{
