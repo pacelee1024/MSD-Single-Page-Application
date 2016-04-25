@@ -2,7 +2,7 @@
 
 ## Installation and Running
 
-1. Install Apache server and PHP, eg: XAMPP.
+1. Install Apache server and PHP, eg: XAMPP with 7.0.5 and PHP 7.
 
 2. Put the files folder into `htdocs` under XAMPP installation directory.
 
