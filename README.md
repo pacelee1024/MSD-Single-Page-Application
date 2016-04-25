@@ -10,9 +10,7 @@
    the server software has read and write permission on it. This folder is
    used to store the generated QR codes and zip files.
 
-   command example in OS X terminal:
-   $ mkdir files
-   $ chmod 777 files/
+   command example in OS X terminal: $ mkdir files and $ chmod 777 files/
 
 4. Launch the Apache server and use localhost to run the application
 
