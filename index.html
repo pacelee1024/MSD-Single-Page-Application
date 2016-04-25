@@ -1,0 +1,67 @@
+<!doctype html>
+<html ng-app="QRCodeApp">
+<head>
+  <title>QRCode Generator</title>
+
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+  <!-- angularjs -->
+  <script type="text/javascript" src="script.js">  </script>
+
+</head>
+
+<body ng-controller=formController>
+<div class="container">
+<div class="col-md-8 col-md-offset-2">
+
+  <!-- page title -->
+  <div class="page-header">
+    <h1><span class="glyphicon glyphicon-tower"></span> QRCode Generator</h1>
+  </div>
+
+
+  <!-- form -->
+  <form name="userForm">
+    <!-- Name -->
+      <label>Name</label>
+      <input type="text" class="form-control" placeholder="eg: Bruce Wayne" ng-model="name" required>
+      <span class="help-block"></span>
+
+    <!-- Email -->
+      <label>Email</label>
+      <input type="email" class="form-control" placeholder="eg: xxxx@yyy.zzz" ng-model="email" required>
+      <span class="help-block"></span>
+
+    <!-- Alpha numeric code for generating QRCode -->
+      <label>Unique QRCode in alpha numeric form, separate by comma (at most 10 per time)</label>
+      <input type="text" class="form-control" placeholder="eg: sxr43s95s,DaG3sssrl,43DjangoUnchained" ng-model="string" required>
+      <span class="help-block"></span>
+
+
+    <!-- Generate button-->
+    <button type="submit" class="btn btn-success btn-lg btn-block" ng-click="formsubmit(userForm.$valid)" ng-disabled="userForm.$invalid">
+      <span class="glyphicon glyphicon-flash"></span> Generate
+    </button>
+  </form>
+  </br>
+
+  <p>Generated QRCode</p>
+  <div ng-repeat="imageLink in images">
+      <ng-include src="'image_display.html'"></ng-include>
+  </div>
+
+  <p>Download as zip: <a href="{{ zip }}">{{ zip }}</a> </p>
+
+</div>
+</div>
+
+<script type="text/ng-template" id="image_display.html">
+      <img src="{{imageLink}}" />
+      <a ng-href="{{imageLink}}">{{imageLink}}</a>
+</script>
+</body>
+
+
+</html>
