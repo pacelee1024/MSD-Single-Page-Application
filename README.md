@@ -4,7 +4,7 @@
 
 1. Install Apache server and PHP, eg: XAMPP.
 
-2. Put the files into `htdocs` under XAMPP installation directory.
+2. Put the files folder into `htdocs` under XAMPP installation directory.
 
 3. Create a folder named `files` in the root of the project and make sure
    the server software has read and write permission on it. This folder is
