@@ -15,8 +15,8 @@ $client = S3Client::factory(array(
     'version' => '2006-03-01',
     'region' => 'ap-southeast-1',
     'credentials' => [
-        'key'    => 'AKIAJINCN54ESPUJ4S2Q',
-        'secret' => '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',
+        'key'    => ' ',
+        'secret' => ' ',
     ],
 ));
 
@@ -120,8 +120,8 @@ $zipfiles3 = upload($zipfilename, $zipfilepath);
 
 $http_client = new \Http\Adapter\Guzzle6\Client();
 //sandbox test domain can only send to oneself, so here we use a general domain that can send emails to everyone else.
-$mailgun = new \Mailgun\Mailgun('key-fc7873b6b905b88923b1276c0c877aa3', $http_client);
-$domain = "orangejudge.com";
+$mailgun = new \Mailgun\Mailgun(' ', $http_client);
+$domain = " ";
 
 $title = join(", ", $data->string);
 $title = "Your QR Code for " . $title . " are available for download.";
